@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using LinqKit;
@@ -31,6 +32,11 @@ namespace OnboardingSIGDB1.Data.Repositories
         public T Get(Expression<Func<T, bool>> funcFilter)
         {
             return _set.FirstOrDefault(funcFilter.Expand());
+        }
+        
+        public IList<T> GetAll(Expression<Func<T, bool>> funcFilter)
+        {
+            return _set.Where(funcFilter.Expand()).ToList();
         }
 
         public void Remove(T entity)

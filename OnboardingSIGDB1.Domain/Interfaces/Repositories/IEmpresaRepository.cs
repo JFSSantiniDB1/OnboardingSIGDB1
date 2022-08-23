@@ -9,7 +9,6 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Repositories
     {
         Empresa Get(Expression<Func<Empresa, bool>> funcFilter);
         Empresa GetEntityOnly(Expression<Func<Empresa, bool>> funcFilter);
-        IList<Empresa> GetEmpresas(Expression<Func<Empresa, bool>> exp);
         bool GetCnpjAlreadyExists(int id, string cnpj);
     }
 }

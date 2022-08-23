@@ -27,16 +27,6 @@ namespace OnboardingSIGDB1.Data.Repositories
                 .FirstOrDefault(funcFilter.Expand());
         }
 
-        public IList<Funcionario> GetFuncionarios(Expression<Func<Funcionario, bool>> exp)
-        {
-            return _contexto.Funcionario
-                .Include(x => x.Empresa)
-                .Include(x => x.Cargos)
-                .ThenInclude(x => x.Cargo)
-                .Where(exp.Expand())
-                .ToList();
-        }
-        
         public bool GetCpfAlreadyExists(int id, string cpf)
         {
             return _contexto.Funcionario.Any(x => x.Id != id && x.Cpf == cpf);

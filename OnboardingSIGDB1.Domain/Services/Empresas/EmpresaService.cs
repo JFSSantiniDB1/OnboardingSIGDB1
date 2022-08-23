@@ -46,7 +46,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             if(filtro.DataFundacaoFim.HasValue)
                 exp = CombineExpressions<Empresa>.And(exp, x => x.DataFundacao <= filtro.DataFundacaoFim.Value);
 
-            return _empresaRepository.GetEmpresas(exp).Select(x => BaseMapper.Mapper.Map<EmpresaDto>(x)).ToList();
+            return _empresaRepository.GetAll(exp).Select(x => BaseMapper.Mapper.Map<EmpresaDto>(x)).ToList();
         }
         
         public EmpresaDto Get(int id)

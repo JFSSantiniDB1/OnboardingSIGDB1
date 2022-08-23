@@ -38,7 +38,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             if(!string.IsNullOrEmpty(filtro.Descricao))
                 exp = CombineExpressions<Cargo>.And(exp, x => x.Descricao.Contains(filtro.Descricao));
 
-            return _cargoRepository.GetCargos(exp).Select(x => BaseMapper.Mapper.Map<CargoDto>(x)).ToList();
+            return _cargoRepository.GetAll(exp).Select(x => BaseMapper.Mapper.Map<CargoDto>(x)).ToList();
         }
         
         public CargoDto Get(int id)

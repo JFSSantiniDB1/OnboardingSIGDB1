@@ -31,14 +31,7 @@ namespace OnboardingSIGDB1.Data.Repositories
             return _contexto.Empresa
                 .FirstOrDefault(funcFilter.Expand());
         }
-        
-        public IList<Empresa> GetEmpresas(Expression<Func<Empresa, bool>> exp)
-        {
-            return _contexto.Empresa
-                .Where(exp.Expand())
-                .ToList();
-        }
-        
+
         public bool GetCnpjAlreadyExists(int id, string cnpj)
         {
             return _contexto.Empresa.Any(x => x.Id != id && x.Cnpj == cnpj);

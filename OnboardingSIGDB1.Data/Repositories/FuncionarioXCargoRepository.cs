@@ -26,7 +26,7 @@ namespace OnboardingSIGDB1.Data.Repositories
                 .FirstOrDefault(exp.Expand());
         }
         
-        public IList<FuncionarioXCargo> GetListFuncionarioXCargo(Expression<Func<FuncionarioXCargo, bool>> exp)
+        public IList<FuncionarioXCargo> GetAll(Expression<Func<FuncionarioXCargo, bool>> exp)
         {
             return _contexto.FuncionarioXCargo
                 .Include(x => x.Cargo)

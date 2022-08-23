@@ -17,13 +17,6 @@ namespace OnboardingSIGDB1.Data.Repositories
             _contexto = contexto;
         }
 
-        public IList<Cargo> GetCargos(Expression<Func<Cargo, bool>> exp)
-        {
-            return _contexto.Cargo
-                .Where(exp.Expand())
-                .ToList();
-        }
-
         public bool GetDescricaoAlreadyExists(int entityId, string entityDescricao)
         {
             return _contexto.Cargo.Any(x => x.Id != entityId && x.Descricao == entityDescricao);

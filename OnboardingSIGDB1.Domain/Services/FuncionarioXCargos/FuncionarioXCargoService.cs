@@ -37,7 +37,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             if(filtro.IdCargo.HasValue)
                 exp = CombineExpressions<FuncionarioXCargo>.And(exp, x => x.IdCargo == filtro.IdCargo);
 
-            return _funcionarioXCargoRepository.GetListFuncionarioXCargo(exp)
+            return _funcionarioXCargoRepository.GetAll(exp)
                 .Select(x => BaseMapper.Mapper.Map<FuncionarioXCargoDto>(x)).ToList();
         }
         

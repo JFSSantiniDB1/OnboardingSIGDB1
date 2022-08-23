@@ -47,7 +47,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if(filtro.DataContratacaoFim.HasValue)
                 exp = CombineExpressions<Funcionario>.And(exp, x => x.DataContratacao <= filtro.DataContratacaoFim.Value);
             
-            return _funcionarioRepository.GetFuncionarios(exp)
+            return _funcionarioRepository.GetAll(exp)
                 .Select(x => BaseMapper.Mapper.Map<FuncionarioDto>(x)).ToList();
         }
         
