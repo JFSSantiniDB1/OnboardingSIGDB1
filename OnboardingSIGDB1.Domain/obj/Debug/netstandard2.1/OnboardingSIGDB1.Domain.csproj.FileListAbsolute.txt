@@ -1,0 +1,10 @@
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\bin\Debug\netstandard2.1\OnboardingSIGDB1.Domain.deps.json
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\bin\Debug\netstandard2.1\OnboardingSIGDB1.Domain.dll
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\bin\Debug\netstandard2.1\OnboardingSIGDB1.Domain.pdb
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.csproj.AssemblyReference.cache
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.AssemblyInfoInputs.cache
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.AssemblyInfo.cs
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.csproj.CoreCompileInputs.cache
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.dll
+C:\Treinamentos\OnboardingSIGDB1\OnboardingSIGDB1.Domain\obj\Debug\netstandard2.1\OnboardingSIGDB1.Domain.pdb
