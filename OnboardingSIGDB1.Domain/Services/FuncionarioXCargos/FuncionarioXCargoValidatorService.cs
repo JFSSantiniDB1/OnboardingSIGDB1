@@ -2,6 +2,7 @@
 using OnboardingSIGDB1.Domain.Entities;
 using OnboardingSIGDB1.Domain.Interfaces.Repositories;
 using OnboardingSIGDB1.Domain.Interfaces.Validator;
+using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
 {
@@ -17,19 +18,19 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             
             RuleFor(x => x.IdFuncionario)
                 .Must(ValidateHaveLinkWithCompany)
-                .WithMessage("O funcionário só pode possuir um cargo se estiver vinculado a uma empresa.");
+                .WithMessage(Messages.FuncionarioSoPodeTerCargoSeEstarEmEmpresa);
             
             RuleFor(x => x.IdFuncionario)
                 .Must(ValidateFuncionarioExists)
-                .WithMessage("O funcionário escolhido não existe.");
+                .WithMessage(Messages.FuncionarioNaoExiste);
             
             RuleFor(x => x.IdCargo)
                 .Must(ValidateCargoExists)
-                .WithMessage("O cargo escolhido não existe.");            
+                .WithMessage(Messages.CargoNaoExiste);            
             
             RuleFor(x => x)
                 .Must(ValidateLinkAlreadyExists)
-                .WithMessage("O funcionário já possui vínculo com o cargo escolhido.");
+                .WithMessage(Messages.FuncionarioJaPoissuiCargoEscolhido);
         }
 
         private bool ValidateCargoExists(int idCargo)

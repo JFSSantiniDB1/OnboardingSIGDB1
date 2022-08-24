@@ -4,6 +4,7 @@ using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entities;
 using OnboardingSIGDB1.Domain.Interfaces.Repositories;
 using OnboardingSIGDB1.Domain.Interfaces.Validator;
+using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {
@@ -22,11 +23,11 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
             RuleFor(r => r.Nome)
                 .NotEmpty()
-                .WithMessage("O campo 'nome' é obrigatório.");
+                .WithMessage(Messages.NomeObrigatorio);
 
             RuleFor(r => r.Nome)
                 .MaximumLength(150)
-                .WithMessage("O campo 'nome' atingiu o limite máximo de caracteres (150).");
+                .WithMessage(Messages.NomeLimiteMax150Caracteres);
 
             #endregion Nome
 
@@ -34,37 +35,37 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
             RuleFor(r => r.Cpf)
                 .NotEmpty()
-                .WithMessage("O campo 'CPF' é obrigatório.");
+                .WithMessage(Messages.CpfObrigatorio);
 
             RuleFor(r => r.Cpf)
                 .MaximumLength(11)
-                .WithMessage("O campo 'CPF' atingiu o limite máximo de caracteres (11).");
+                .WithMessage(Messages.CpfLimiteMax11Caracteres);
 
             RuleFor(x => x.Cpf)
                 .Must(x => BaseValidations.IsCpf(x))
                 .When(x => x.Cpf?.Length > 0)
-                .WithMessage("A informação no campo 'CPF' é inválida.");
+                .WithMessage(Messages.CpfInvalido);
 
             RuleFor(x => x)
                 .Must(ValidateCpfAlreadyExists)
                 .When(x => x.Cpf?.Length > 0)
-                .WithMessage("O CPF digitado já existe na base.");
+                .WithMessage(Messages.CpfRepetido);
 
             #endregion Cpf
 
             RuleFor(r => r.DataContratacao)
                 .Must(x => x > DateTime.MinValue)
-                .WithMessage("A informação no campo 'Data de contratação' é inválida.");
+                .WithMessage(Messages.DataContratacaoInvalida);
 
             RuleFor(x => x.IdEmpresa)
                 .Must(ValidateEmpresaExists)
-                .WithMessage("A empresa selecionada não existe.");
+                .WithMessage(Messages.EmpresaRepetida);
         }
 
         private bool ValidateEmpresaExists(int? idEmpresa)
         {
             if (!idEmpresa.HasValue)
-                return false;
+                return true;
             return _empresaRepository.Get(x => x.Id == idEmpresa) != null;
         }
 

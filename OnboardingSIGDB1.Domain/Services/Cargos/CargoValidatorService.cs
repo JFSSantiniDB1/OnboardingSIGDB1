@@ -2,6 +2,7 @@
 using OnboardingSIGDB1.Domain.Entities;
 using OnboardingSIGDB1.Domain.Interfaces.Repositories;
 using OnboardingSIGDB1.Domain.Interfaces.Validator;
+using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
@@ -15,15 +16,15 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             #region Descricao
             RuleFor(r => r.Descricao)
                 .NotEmpty()
-                .WithMessage("O campo 'Descrição' é obrigatório.");
+                .WithMessage(Messages.DescricaoObrigatoria);
             
             RuleFor(r => r.Descricao)
                 .MaximumLength(250)
-                .WithMessage("O campo 'Descrição' atingiu o limite máximo de caracteres (250).");
+                .WithMessage(Messages.DescricaoLimiteMax250Caracteres);
             
             RuleFor(x => x)
                 .Must(ValidateDescricaoAlreadyExists)
-                .WithMessage("A Descrição digitada já existe na base.");
+                .WithMessage(Messages.DescricaoRepetida);
             #endregion Descricao
         }
 

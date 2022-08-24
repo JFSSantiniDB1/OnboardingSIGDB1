@@ -4,6 +4,7 @@ using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entities;
 using OnboardingSIGDB1.Domain.Interfaces.Repositories;
 using OnboardingSIGDB1.Domain.Interfaces.Validator;
+using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
@@ -17,36 +18,36 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             #region Nome
             RuleFor(r => r.Nome)
                 .NotEmpty()
-                .WithMessage("O campo 'nome' é obrigatório.");
+                .WithMessage(Messages.NomeObrigatorio);
             
             RuleFor(r => r.Nome)
                 .MaximumLength(150)
-                .WithMessage("O campo 'nome' atingiu o limite máximo de caracteres (150).");
+                .WithMessage(Messages.NomeLimiteMax150Caracteres);
             #endregion Nome
             
             #region Cnpj
             RuleFor(r => r.Cnpj)
                 .NotEmpty()
-                .WithMessage("O campo 'CNPJ' é obrigatório.");
+                .WithMessage(Messages.CnpjObrigatorio);
             
             RuleFor(r => r.Cnpj)
                 .MaximumLength(14)
-                .WithMessage("O campo 'CNPJ' atingiu o limite máximo de caracteres (14).");
+                .WithMessage(Messages.CnpjLimiteMax14Caracteres);
 
             RuleFor(x => x.Cnpj)
                 .Must(x => BaseValidations.IsCnpj(x))
                 .When(x => x.Cnpj?.Length > 0)
-                .WithMessage("A informação no campo 'CNPJ' é inválida.");
+                .WithMessage(Messages.CnpjInvalido);
             
             RuleFor(x => x)
                 .Must(ValidateCnpjAlreadyExists)
                 .When(x => x.Cnpj?.Length > 0)
-                .WithMessage("O CNPJ digitado já existe na base.");
+                .WithMessage(Messages.CnpjRepetido);
             #endregion Cnpj
             
             RuleFor(r => r.DataFundacao)
                 .Must(x => x > DateTime.MinValue)
-                .WithMessage("A informação no campo 'Data da Fundação' é inválida.");
+                .WithMessage(Messages.DataFundacaoInvalida);
         }
 
         private bool ValidateCnpjAlreadyExists(Empresa entity)
