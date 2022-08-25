@@ -1,7 +1,6 @@
 ﻿using Bogus;
-using Moq;
-using OnboardingSIGDB1.Domain.Interfaces.Repositories;
-using OnboardingSIGDB1.Domain.Services.Empresas;
+using Microsoft.Extensions.DependencyInjection;
+using OnboardingSIGDB1.Domain.Interfaces.Validator;
 using OnboardingSIGDB1.Domain.Services.Funcionarios;
 using OnboardingSIGDB1.Domain.Utils;
 using OnboardingSIGDB1.Test.Builder;
@@ -10,15 +9,13 @@ using Xunit;
 
 namespace OnboardingSIGDB1.Test.Entities;
 
-public class FuncionarioTests : IDisposable
+public class FuncionarioTests : IDisposable, IClassFixture<InjectionFixture>
 {
-    private IFuncionarioRepository _repository;
-    private IEmpresaRepository _repositoryEmpresa;
-
-    public FuncionarioTests()
+    private readonly IFuncionarioValidatorService _validator;
+    
+    public FuncionarioTests(InjectionFixture injection)
     {
-        _repository = new Mock<IFuncionarioRepository>().Object;
-        _repositoryEmpresa = new Mock<IEmpresaRepository>().Object;
+        _validator = injection.ServiceProvider.GetService<IFuncionarioValidatorService>()!;
     }
 
     public void Dispose()
@@ -30,7 +27,7 @@ public class FuncionarioTests : IDisposable
     public void DeveCriarFuncionario()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().Build();
-        var resultado = funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository,_repositoryEmpresa));
+        var resultado = funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         Assert.True(resultado);
     }
 
@@ -38,7 +35,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarNomeObrigatorio()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComNome(new Faker().Random.String2(0)).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.NomeObrigatorio);
@@ -48,7 +45,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarNomeLimiteMaximo150Caracteres()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComNome(new Faker().Random.String2(151)).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.NomeLimiteMax150Caracteres);
@@ -58,7 +55,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarCpfObrigatorio()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComCpf(new Faker().Random.String2(0)).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.CpfObrigatorio);
@@ -68,7 +65,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarCpfLimiteMaximo11Caracteres()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComCpf(new Faker().Random.String2(20)).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.CpfLimiteMax11Caracteres);
@@ -81,7 +78,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarFormatoCpf(string cpf)
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComCpf(cpf).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.CpfInvalido);
@@ -91,7 +88,7 @@ public class FuncionarioTests : IDisposable
     public void DeveValidarDataContratacaoMinima()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().ComDataContratacao(DateTime.MinValue).Build();
-        funcionarioEsperado.Validate(funcionarioEsperado, new FuncionarioValidatorService(_repository, _repositoryEmpresa));
+        funcionarioEsperado.Validate(funcionarioEsperado, _validator);
         var retornoValidacao = funcionarioEsperado.ValidationResult.Errors.FirstOrDefault();
 
         retornoValidacao.ComMensagemEsperada(Messages.DataContratacaoInvalida);

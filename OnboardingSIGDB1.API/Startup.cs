@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Authentication;
 using OnboardingSIGDB1.IOC;
 
 namespace OnboardingSIGDB1.API;

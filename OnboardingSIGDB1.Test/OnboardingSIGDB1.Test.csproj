@@ -10,6 +10,8 @@
 
     <ItemGroup>
         <PackageReference Include="Bogus" Version="34.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0-preview.7.22375.6" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="Moq" Version="4.18.2" />
         <PackageReference Include="xunit" Version="2.4.1" />
@@ -25,10 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OnboardingSIGDB1.Domain\OnboardingSIGDB1.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services" />
+      <ProjectReference Include="..\OnboardingSIGDB1.IOC\OnboardingSIGDB1.IOC.csproj" />
     </ItemGroup>
 
 </Project>

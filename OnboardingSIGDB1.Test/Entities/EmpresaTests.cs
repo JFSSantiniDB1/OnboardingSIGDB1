@@ -1,9 +1,6 @@
 ﻿using Bogus;
-using Moq;
-using OnboardingSIGDB1.Domain.Entities;
-using OnboardingSIGDB1.Domain.Interfaces.Repositories;
-using OnboardingSIGDB1.Domain.Services.Cargos;
-using OnboardingSIGDB1.Domain.Services.Empresas;
+using Microsoft.Extensions.DependencyInjection;
+using OnboardingSIGDB1.Domain.Interfaces.Validator;
 using OnboardingSIGDB1.Domain.Utils;
 using OnboardingSIGDB1.Test.Builder;
 using OnboardingSIGDB1.Test.Util;
@@ -11,13 +8,13 @@ using Xunit;
 
 namespace OnboardingSIGDB1.Test.Entities;
 
-public class EmpresaTests : IDisposable
+public class EmpresaTests : IDisposable, IClassFixture<InjectionFixture>
 {
-    private IEmpresaRepository _repository;
+    private readonly IEmpresaValidatorService _validator;
     
-    public EmpresaTests()
+    public EmpresaTests(InjectionFixture injection)
     {
-        _repository = new Mock<IEmpresaRepository>().Object;
+        _validator = injection.ServiceProvider.GetService<IEmpresaValidatorService>()!;
     }
     
     public void Dispose()
@@ -29,7 +26,7 @@ public class EmpresaTests : IDisposable
     public void DeveCriarEmpresa()
     {
         var empresaEsperada = EmpresaBuilder.Novo().Build();
-        var resultado = empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        var resultado = empresaEsperada.Validate(empresaEsperada, _validator);
         Assert.True(resultado);
     }
 
@@ -37,7 +34,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarNomeObrigatorio()
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComNome(new Faker().Random.String2(0)).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.NomeObrigatorio);
@@ -47,7 +44,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarNomeLimiteMaximo150Caracteres()
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComNome(new Faker().Random.String2(151)).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.NomeLimiteMax150Caracteres);
@@ -57,7 +54,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarCnpjObrigatorio()
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComCnpj(new Faker().Random.String2(0)).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.CnpjObrigatorio);
@@ -67,7 +64,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarCnpjLimiteMaximo14Caracteres()
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComCnpj(new Faker().Random.String2(20)).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.CnpjLimiteMax14Caracteres);
@@ -81,7 +78,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarFormatoCnpj(string cnpj)
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComCnpj(cnpj).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.CnpjInvalido);
@@ -91,7 +88,7 @@ public class EmpresaTests : IDisposable
     public void DeveValidarDataFundacaoMinima()
     {
         var empresaEsperada = EmpresaBuilder.Novo().ComDataFundacao(DateTime.MinValue).Build();
-        empresaEsperada.Validate(empresaEsperada, new EmpresaValidatorService(_repository));
+        empresaEsperada.Validate(empresaEsperada, _validator);
         var retornoValidacao = empresaEsperada.ValidationResult.Errors.FirstOrDefault();
         
         retornoValidacao.ComMensagemEsperada(Messages.DataFundacaoInvalida);

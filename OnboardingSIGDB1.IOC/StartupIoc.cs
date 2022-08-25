@@ -25,7 +25,7 @@ namespace OnboardingSIGDB1.IOC
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
                     b => b.MigrationsAssembly("OnboardingSIGDB1.Data"));
             });
-            
+
             services.AddScoped<ICargoRepository, CargoRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
