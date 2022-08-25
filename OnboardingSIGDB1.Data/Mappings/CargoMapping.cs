@@ -11,7 +11,7 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.ToTable("CARGO");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Property(p => p.Descricao);
+            builder.Property(p => p.Descricao).HasMaxLength(250).IsRequired();
             
         }
     }

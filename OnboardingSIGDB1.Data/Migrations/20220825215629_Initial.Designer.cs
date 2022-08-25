@@ -10,7 +10,7 @@ using OnboardingSIGDB1.Data;
 namespace OnboardingSIGDB1.Data.Migrations
 {
     [DbContext(typeof(SIGDB1DbContext))]
-    [Migration("20220816134949_Initial")]
+    [Migration("20220825215629_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,9 @@ namespace OnboardingSIGDB1.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
@@ -44,13 +46,17 @@ namespace OnboardingSIGDB1.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Cnpj")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
-                    b.Property<DateTime>("DataFundacao")
+                    b.Property<DateTime?>("DataFundacao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -65,16 +71,20 @@ namespace OnboardingSIGDB1.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Cpf")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
-                    b.Property<DateTime>("DataContratacao")
+                    b.Property<DateTime?>("DataContratacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdEmpresa")
+                    b.Property<int?>("IdEmpresa")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -113,8 +123,7 @@ namespace OnboardingSIGDB1.Data.Migrations
                     b.HasOne("OnboardingSIGDB1.Domain.Entities.Empresa", "Empresa")
                         .WithMany("Funcionarios")
                         .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Empresa");
                 });
@@ -124,7 +133,7 @@ namespace OnboardingSIGDB1.Data.Migrations
                     b.HasOne("OnboardingSIGDB1.Domain.Entities.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("IdCargo")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OnboardingSIGDB1.Domain.Entities.Funcionario", "Funcionario")

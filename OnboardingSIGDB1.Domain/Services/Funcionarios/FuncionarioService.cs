@@ -29,7 +29,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             _validator = validator;
         }
         
-        public IList<FuncionarioDto> GetAll(FiltroFuncionarioDto filtro)
+        public IList<FuncionarioListDto> GetAll(FiltroFuncionarioDto filtro)
         {
             Expression<Func<Funcionario, bool>> exp = x => x.Id != 0;
 
@@ -48,7 +48,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
                 exp = CombineExpressions<Funcionario>.And(exp, x => x.DataContratacao <= filtro.DataContratacaoFim.Value);
             
             return _funcionarioRepository.GetAll(exp)
-                .Select(x => BaseMapper.Mapper.Map<FuncionarioDto>(x)).ToList();
+                .Select(x => BaseMapper.Mapper.Map<FuncionarioListDto>(x)).ToList();
         }
         
         public FuncionarioDto Get(int id)
@@ -91,9 +91,13 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             funcionario.SetCpf(Convertions.GetCpfSemMascara(funcionarioDto.Cpf));
             funcionario.SetNome(funcionarioDto.Nome);
             funcionario.SetDataContratacao(Convertions.GetDateTime(funcionarioDto.DataContratacao));
-            if(funcionario.IdEmpresa != funcionarioDto.IdEmpresa)
+            if (funcionario.IdEmpresa.HasValue && funcionario.IdEmpresa != funcionarioDto.IdEmpresa)
+            {
                 _notification.AddNotification("Unprocessable Entity", "Não é permitido alterar a empresa do funcionário.");
-        
+                return 0;
+            }
+            funcionario.IdEmpresa = funcionarioDto.IdEmpresa;
+            
             funcionario.Validate(funcionario, _validator);
             if(funcionario.Invalid)
                 _notification.AddNotifications(funcionario.ValidationResult);

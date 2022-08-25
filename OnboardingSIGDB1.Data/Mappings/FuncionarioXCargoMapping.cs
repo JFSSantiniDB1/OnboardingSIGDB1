@@ -11,8 +11,8 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.ToTable("FUNCIONARIOXCARGO");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Property(p => p.IdFuncionario);
-            builder.Property(p => p.IdCargo);
+            builder.Property(p => p.IdFuncionario).IsRequired();
+            builder.Property(p => p.IdCargo).IsRequired();
             
             builder.HasOne(p => p.Funcionario)
                 .WithMany(p => p.Cargos)

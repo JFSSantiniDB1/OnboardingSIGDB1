@@ -30,7 +30,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             _validator = validator;
         }
         
-        public IList<EmpresaDto> GetAll(FiltroEmpresaDto filtro)
+        public IList<EmpresaListDto> GetAll(FiltroEmpresaDto filtro)
         {
             Expression<Func<Empresa, bool>> exp = x => x.Id != 0;
 
@@ -46,7 +46,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             if(filtro.DataFundacaoFim.HasValue)
                 exp = CombineExpressions<Empresa>.And(exp, x => x.DataFundacao <= filtro.DataFundacaoFim.Value);
 
-            return _empresaRepository.GetAll(exp).Select(x => BaseMapper.Mapper.Map<EmpresaDto>(x)).ToList();
+            return _empresaRepository.GetAll(exp).Select(x => BaseMapper.Mapper.Map<EmpresaListDto>(x)).ToList();
         }
         
         public EmpresaDto Get(int id)

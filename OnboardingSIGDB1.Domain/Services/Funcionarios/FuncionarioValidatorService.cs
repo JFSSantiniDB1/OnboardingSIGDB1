@@ -64,7 +64,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         private bool ValidateEmpresaExists(int? idEmpresa)
         {
-            if (!idEmpresa.HasValue)
+            if (!idEmpresa.HasValue || idEmpresa == 0)
                 return true;
             return _empresaRepository.Get(x => x.Id == idEmpresa) != null;
         }

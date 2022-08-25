@@ -24,9 +24,17 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
 
                 cfg.CreateMap<FuncionarioDto, Funcionario>()
                     .ForMember(c => c.Cpf, 
-                    act => act.MapFrom(src => Convertions.GetCpfSemMascara(src.Cpf)));
+                    act => act.MapFrom(src => Convertions.GetCpfSemMascara(src.Cpf)))
+                    .ForMember(c => c.IdEmpresa, 
+                        act => act.MapFrom(src => src.IdEmpresa == 0 ? null : src.IdEmpresa));
                 
                 cfg.CreateMap<FuncionarioInputDto, FuncionarioDto>();
+
+                cfg.CreateMap<Funcionario, FuncionarioListDto>()
+                    .ForMember(c => c.DataContratacao,
+                        act => act.MapFrom(src => Convertions.GetDateFormatted(src.DataContratacao)))
+                    .ForMember(c => c.Cpf,
+                        act => act.MapFrom(src => Convertions.GetCpfComMascara(src.Cpf)));
                 
                 cfg.CreateMap<Funcionario, FuncionarioDto>()
                     .ForMember(c => c.DataContratacao, 
@@ -56,6 +64,12 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
                 
                 cfg.CreateMap<FuncionarioXCargoDto, FuncionarioXCargo>();
                 cfg.CreateMap<FuncionarioXCargoInputDto, FuncionarioXCargoDto>();
+
+                cfg.CreateMap<Empresa, EmpresaListDto>()
+                    .ForMember(c => c.Cnpj,
+                        act => act.MapFrom(src => Convertions.GetCnpjComMascara(src.Cnpj)))
+                    .ForMember(c => c.DataFundacao,
+                        act => act.MapFrom(src => Convertions.GetDateFormatted(src.DataFundacao)));            
                 
                 cfg.CreateMap<Empresa, EmpresaDto>()
                     .ForMember(c => c.Cnpj, 

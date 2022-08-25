@@ -11,14 +11,15 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.ToTable("EMPRESA");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Property(p => p.Nome);
-            builder.Property(p => p.Cnpj);
+            builder.Property(p => p.Nome).HasMaxLength(150).IsRequired();
+            builder.Property(p => p.Cnpj).HasMaxLength(14).IsRequired();
             builder.Property(p => p.DataFundacao);
             
             builder.HasMany(p => p.Funcionarios)
                 .WithOne(p => p.Empresa)
+                .IsRequired(false)
                 .HasForeignKey(fk => fk.IdEmpresa)
-                .OnDelete(DeleteBehavior.Restrict);;
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

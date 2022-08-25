@@ -6,7 +6,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Services
 {
     public interface IFuncionarioService
     {
-        IList<FuncionarioDto> GetAll(FiltroFuncionarioDto filtro);
+        IList<FuncionarioListDto> GetAll(FiltroFuncionarioDto filtro);
         FuncionarioDto Get(int id);
         int Add(FuncionarioDto funcionarioDto);
         int Update(FuncionarioDto funcionarioDto);

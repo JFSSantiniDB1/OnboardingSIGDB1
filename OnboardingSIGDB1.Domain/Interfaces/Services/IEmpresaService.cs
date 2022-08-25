@@ -6,7 +6,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Services
 {
     public interface IEmpresaService
     {
-        IList<EmpresaDto> GetAll(FiltroEmpresaDto filtro);
+        IList<EmpresaListDto> GetAll(FiltroEmpresaDto filtro);
         EmpresaDto Get(int id);
         int Add(EmpresaDto empresaDto);
         int Update(EmpresaDto empresaDto);
