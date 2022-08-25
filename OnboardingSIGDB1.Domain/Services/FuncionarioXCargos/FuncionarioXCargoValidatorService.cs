@@ -17,10 +17,6 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             _funcionarioXCargoRepository = funcionarioXCargoRepository;
             
             RuleFor(x => x.IdFuncionario)
-                .Must(ValidateHaveLinkWithCompany)
-                .WithMessage(Messages.FuncionarioSoPodeTerCargoSeEstarEmEmpresa);
-            
-            RuleFor(x => x.IdFuncionario)
                 .Must(ValidateFuncionarioExists)
                 .WithMessage(Messages.FuncionarioNaoExiste);
             
@@ -31,6 +27,10 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             RuleFor(x => x)
                 .Must(ValidateLinkAlreadyExists)
                 .WithMessage(Messages.FuncionarioJaPoissuiCargoEscolhido);
+            
+            RuleFor(x => x.IdFuncionario)
+                .Must(ValidateHaveLinkWithCompany)
+                .WithMessage(Messages.FuncionarioSoPodeTerCargoSeEstarEmEmpresa);
         }
 
         private bool ValidateCargoExists(int idCargo)

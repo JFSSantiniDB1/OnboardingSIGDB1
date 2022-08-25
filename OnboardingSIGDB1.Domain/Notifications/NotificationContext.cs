@@ -58,5 +58,10 @@ namespace OnboardingSIGDB1.Domain.Notifications
                 AddNotifications(vl);
             }
         }
+
+        public void ClearNotifications()
+        {
+            _notifications.Clear();
+        }
     }
 }

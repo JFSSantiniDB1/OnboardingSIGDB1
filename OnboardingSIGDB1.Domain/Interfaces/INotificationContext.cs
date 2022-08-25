@@ -21,5 +21,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces
         void AddNotifications(ValidationResult validationResult);
         
         void AddNotifications(IEnumerable<ValidationResult> validationResult);
+
+        void ClearNotifications();
     }
 }

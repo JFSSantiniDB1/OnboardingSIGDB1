@@ -8,21 +8,17 @@ using Xunit;
 
 namespace OnboardingSIGDB1.Test.Entities;
 
-public class CargoTests : IDisposable, IClassFixture<InjectionFixture>
+public class CargoTests : IClassFixture<InjectionFixture>
 {
     private readonly ICargoValidatorService _validator;
+
     public CargoTests(InjectionFixture injection)
     {
         _validator = injection.ServiceProvider.GetService<ICargoValidatorService>()!;
     }
-    
-    public void Dispose()
-    {
-        Console.WriteLine("Dispose");
-    }
 
     [Fact]
-    public void DeveCriarCargo()
+    public void DeveCriarCargoValido()
     {
         var cargoEsperado = CargoBuilder.Novo().Build();
         var resultado = cargoEsperado.Validate(cargoEsperado, _validator);
@@ -35,17 +31,17 @@ public class CargoTests : IDisposable, IClassFixture<InjectionFixture>
         var cargoEsperado = CargoBuilder.Novo().ComDescricao(new Faker().Random.String2(0)).Build();
         cargoEsperado.Validate(cargoEsperado, _validator);
         var retornoValidacao = cargoEsperado.ValidationResult.Errors.FirstOrDefault();
-        
+
         retornoValidacao.ComMensagemEsperada(Messages.DescricaoObrigatoria);
-    }    
-    
+    }
+
     [Fact]
     public void DeveValidarDescricaoLimiteMaximo250Caracteres()
     {
         var cargoEsperado = CargoBuilder.Novo().ComDescricao(new Faker().Random.String2(251)).Build();
         cargoEsperado.Validate(cargoEsperado, _validator);
         var retornoValidacao = cargoEsperado.ValidationResult.Errors.FirstOrDefault();
-        
+
         retornoValidacao.ComMensagemEsperada(Messages.DescricaoLimiteMax250Caracteres);
     }
 }

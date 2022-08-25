@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using OnboardingSIGDB1.Domain.Dto.Funcionarios;
 using OnboardingSIGDB1.Domain.Entities;
 
 namespace OnboardingSIGDB1.Test.Builder;
@@ -57,16 +58,26 @@ public class FuncionarioBuilder
         return funcionario;
     }
     
-    public static String GerarCpf()
+    public FuncionarioDto BuildDto()
+    {
+        var funcionario = new FuncionarioDto();
+        funcionario.Nome = _nome;
+        funcionario.Cpf = _cpf;
+        funcionario.DataContratacao = _dataContratacao?.ToString("dd/MM/yyyy");
+        funcionario.IdEmpresa = _idEmpresa;
+        return funcionario;
+    }
+    
+    public static string GerarCpf()
     {
         int soma = 0, resto = 0;
-        int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-        Random rnd = new Random();
-        string semente = rnd.Next(100000000, 999999999).ToString();
+        var rnd = new Random();
+        var semente = rnd.Next(100000000, 999999999).ToString();
 
-        for (int i = 0; i < 9; i++)
+        for (var i = 0; i < 9; i++)
             soma += int.Parse(semente[i].ToString()) * multiplicador1[i];
 
         resto = soma % 11;
@@ -75,10 +86,10 @@ public class FuncionarioBuilder
         else
             resto = 11 - resto;
 
-        semente = semente + resto;
+        semente += resto;
         soma = 0;
 
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
             soma += int.Parse(semente[i].ToString()) * multiplicador2[i];
 
         resto = soma % 11;
@@ -88,7 +99,7 @@ public class FuncionarioBuilder
         else
             resto = 11 - resto;
 
-        semente = semente + resto;
+        semente += resto;
         return semente;
     }
 }

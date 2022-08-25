@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using OnboardingSIGDB1.Domain.Dto.Cargos;
 using OnboardingSIGDB1.Domain.Entities;
 
 namespace OnboardingSIGDB1.Test.Builder;
@@ -29,5 +30,12 @@ public class CargoBuilder
         var cargo = new Cargo();
         cargo.SetDescricao(_descricao);
         return cargo;
+        
+    }
+    public CargoDto BuildDto()
+    {
+        var cargoDto = new CargoDto();
+        cargoDto.Descricao = _descricao;
+        return cargoDto;
     }
 }

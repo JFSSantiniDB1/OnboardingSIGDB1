@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using Microsoft.Extensions.DependencyInjection;
 using OnboardingSIGDB1.Domain.Interfaces.Validator;
-using OnboardingSIGDB1.Domain.Services.Funcionarios;
 using OnboardingSIGDB1.Domain.Utils;
 using OnboardingSIGDB1.Test.Builder;
 using OnboardingSIGDB1.Test.Util;
@@ -9,22 +8,17 @@ using Xunit;
 
 namespace OnboardingSIGDB1.Test.Entities;
 
-public class FuncionarioTests : IDisposable, IClassFixture<InjectionFixture>
+public class FuncionarioTests : IClassFixture<InjectionFixture>
 {
     private readonly IFuncionarioValidatorService _validator;
-    
+
     public FuncionarioTests(InjectionFixture injection)
     {
         _validator = injection.ServiceProvider.GetService<IFuncionarioValidatorService>()!;
     }
 
-    public void Dispose()
-    {
-        Console.WriteLine("Dispose");
-    }
-
     [Fact]
-    public void DeveCriarFuncionario()
+    public void DeveCriarFuncionarioValido()
     {
         var funcionarioEsperado = FuncionarioBuilder.Novo().Build();
         var resultado = funcionarioEsperado.Validate(funcionarioEsperado, _validator);

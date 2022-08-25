@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using OnboardingSIGDB1.Domain.Dto.Empresas;
 using OnboardingSIGDB1.Domain.Entities;
 
 namespace OnboardingSIGDB1.Test.Builder;
@@ -48,18 +49,27 @@ public class EmpresaBuilder
         empresa.SetCnPj(_cnpj);
         empresa.SetDataFundacao(_dataFundacao);
         return empresa;
+    } 
+    
+    public EmpresaDto BuildDto()
+    {
+        var empresa = new EmpresaDto();
+        empresa.Nome = _nome;
+        empresa.Cnpj = _cnpj;
+        empresa.DataFundacao = _dataFundacao?.ToString("dd/MM/yyyy");
+        return empresa;
     }
     
     public static String GerarCnpj()
     {
         int soma = 0, resto = 0;
-        int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-        Random rnd = new Random();
-        string semente = rnd.Next(10000000, 99999999).ToString() + "0001";
+        var rnd = new Random();
+        var semente = rnd.Next(10000000, 99999999).ToString() + "0001";
 
-        for (int i = 0; i < 12; i++)
+        for (var i = 0; i < 12; i++)
             soma += int.Parse(semente[i].ToString()) * multiplicador1[i];
 
         resto = soma % 11;
@@ -68,10 +78,10 @@ public class EmpresaBuilder
         else
             resto = 11 - resto;
 
-        semente = semente + resto;
+        semente += resto;
         soma = 0;
 
-        for (int i = 0; i < 13; i++)
+        for (var i = 0; i < 13; i++)
             soma += int.Parse(semente[i].ToString()) * multiplicador2[i];
 
         resto = soma % 11;
@@ -81,7 +91,7 @@ public class EmpresaBuilder
         else
             resto = 11 - resto;
 
-        semente = semente + resto;
+        semente += resto;
         return semente;
     }
 }

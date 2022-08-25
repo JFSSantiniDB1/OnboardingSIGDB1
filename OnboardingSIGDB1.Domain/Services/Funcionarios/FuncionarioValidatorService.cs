@@ -59,7 +59,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
             RuleFor(x => x.IdEmpresa)
                 .Must(ValidateEmpresaExists)
-                .WithMessage(Messages.EmpresaRepetida);
+                .WithMessage(Messages.EmpresaNaoExiste);
         }
 
         private bool ValidateEmpresaExists(int? idEmpresa)

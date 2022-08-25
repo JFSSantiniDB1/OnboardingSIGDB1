@@ -28,8 +28,4 @@
       <ProjectReference Include="..\OnboardingSIGDB1.IOC\OnboardingSIGDB1.IOC.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models" />
-    </ItemGroup>
-
 </Project>
