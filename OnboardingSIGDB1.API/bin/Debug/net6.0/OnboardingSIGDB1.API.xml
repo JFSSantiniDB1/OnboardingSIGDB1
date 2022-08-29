@@ -191,5 +191,12 @@
             <param name="deleteDto"></param>
             <returns>Retorna status 202 e id do vinculo removido</returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
     </members>
 </doc>

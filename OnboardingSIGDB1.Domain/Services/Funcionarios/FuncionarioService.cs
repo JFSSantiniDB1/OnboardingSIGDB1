@@ -73,8 +73,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             else
             {
                 _funcionarioRepository.Add(funcionario);
-                _funcionarioRepository.Commit();
-                return funcionario.Id;
+                return 1;
             }
             return 0;
         }
@@ -104,7 +103,6 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             else
             {
                 _funcionarioRepository.Update(funcionario);
-                _funcionarioRepository.Commit();
                 return funcionario.Id;
             }
 
@@ -123,7 +121,6 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
                 {
                     idReturn = funcionario.Id;
                     _funcionarioRepository.Remove(funcionario);
-                    _funcionarioRepository.Commit();
                 }
                 catch (Exception ex) when (ex is DbUpdateException ||
                                            ex is InvalidOperationException)

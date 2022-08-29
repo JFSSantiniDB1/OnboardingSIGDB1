@@ -43,10 +43,5 @@ namespace OnboardingSIGDB1.Data.Repositories
         {
             _contexto.Remove(entity);
         }
-
-        public void Commit()
-        {
-            _contexto.SaveChanges();
-        }
     }
 }

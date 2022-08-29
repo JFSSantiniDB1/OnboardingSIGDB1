@@ -11,6 +11,5 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Repositories
         T Get(Expression<Func<T, bool>> funcFilter);
         IList<T> GetAll(Expression<Func<T, bool>> funcFilter);
         void Remove(T entity);
-        void Commit();
     }
 }

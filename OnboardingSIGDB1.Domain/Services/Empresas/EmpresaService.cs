@@ -71,9 +71,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             else 
             {
                 _empresaRepository.Add(empresa);
-                _empresaRepository.Commit();
 
-                return empresa.Id;
+                return 1;
             }
             return 0;
         }
@@ -97,7 +96,6 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             else
             {
                 _empresaRepository.Update(empresa);
-                _empresaRepository.Commit();
                 return empresa.Id;
             }
 
@@ -116,9 +114,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
                 {
                     idReturn = empresa.Id;
                     _empresaRepository.Remove(empresa);
-                    _empresaRepository.Commit();
                 }
-                catch (DbUpdateException e)
+                catch (DbUpdateException)
                 {
                     _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
                     idReturn = 0;

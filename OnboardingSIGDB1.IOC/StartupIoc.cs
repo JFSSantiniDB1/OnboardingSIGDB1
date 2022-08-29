@@ -30,6 +30,8 @@ namespace OnboardingSIGDB1.IOC
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             services.AddScoped<IFuncionarioXCargoRepository, FuncionarioXCargoRepository>();
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICargoService, CargoService>();
             services.AddScoped<IEmpresaService, EmpresaService>();

@@ -62,8 +62,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             else
             {
                 _cargoRepository.Add(cargo);
-                _cargoRepository.Commit();
-                return cargo.Id;
+                return 1;
             }
             return 0;
         }
@@ -83,7 +82,6 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             else
             {
                 _cargoRepository.Update(cargo);
-                _cargoRepository.Commit();
                 return cargo.Id;
             }
             return 0;
@@ -101,9 +99,8 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
                 {
                     idReturn = cargo.Id;
                     _cargoRepository.Remove(cargo);
-                    _cargoRepository.Commit();
                 }
-                catch (DbUpdateException e)
+                catch (DbUpdateException)
                 {
                     _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
                     idReturn = 0;

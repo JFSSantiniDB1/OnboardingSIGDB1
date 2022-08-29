@@ -6,7 +6,7 @@ namespace OnboardingSIGDB1.Domain.Entities
 {
     public class Empresa : BaseEntityValidation
     {
-        public Empresa()
+        private Empresa()
         {
             Funcionarios = new List<Funcionario>();
         }

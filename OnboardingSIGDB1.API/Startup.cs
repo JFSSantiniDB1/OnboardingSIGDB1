@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using OnboardingSIGDB1.Domain.Interfaces.Repositories;
 using OnboardingSIGDB1.IOC;
 
 namespace OnboardingSIGDB1.API;
@@ -31,8 +32,20 @@ public class Startup
         });
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="env"></param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.Use(async (context, next) =>
+        {
+            await next.Invoke();
+            var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork))!;
+            await unitOfWork.Commit();
+        });
+        
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();

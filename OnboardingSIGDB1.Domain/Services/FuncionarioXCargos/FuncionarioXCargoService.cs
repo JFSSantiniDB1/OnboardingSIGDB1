@@ -62,8 +62,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             else
             {
                 _funcionarioXCargoRepository.Add(funcionarioXCargo);
-                _funcionarioXCargoRepository.Commit();
-                return funcionarioXCargo.Id;
+                return 1;
             }
             return 0;
         }
@@ -81,9 +80,8 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
                 {
                     idReturn = funcionarioXCargo.Id;
                     _funcionarioXCargoRepository.Remove(funcionarioXCargo);
-                    _funcionarioXCargoRepository.Commit();
                 }
-                catch (DbUpdateException e)
+                catch (DbUpdateException)
                 {
                     _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
                     idReturn = 0;
