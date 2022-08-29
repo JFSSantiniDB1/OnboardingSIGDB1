@@ -6,10 +6,11 @@ namespace OnboardingSIGDB1.Domain.Entities
 {
     public class Funcionario : BaseEntityValidation
     {
-        private Funcionario()
+        public Funcionario()
         {
             Cargos = new List<FuncionarioXCargo>();
         }
+
         public int Id { get; set; }
         public string Nome { get; private set; }
         public string Cpf { get; private set; }

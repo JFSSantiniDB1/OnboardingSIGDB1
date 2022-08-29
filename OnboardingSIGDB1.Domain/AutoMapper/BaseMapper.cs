@@ -23,10 +23,10 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
                 cfg.CreateMap<CargoInputDto, CargoDto>();
 
                 cfg.CreateMap<FuncionarioDto, Funcionario>()
-                    .ForMember(c => c.Cpf, 
-                    act => act.MapFrom(src => Convertions.GetCpfSemMascara(src.Cpf)))
                     .ForMember(c => c.IdEmpresa, 
-                        act => act.MapFrom(src => src.IdEmpresa == 0 ? null : src.IdEmpresa));
+                        act => act.MapFrom(src => src.IdEmpresa == 0 ? null : src.IdEmpresa))
+                    .ForMember(c => c.Cpf, 
+                        act => act.MapFrom(src => Convertions.GetCpfSemMascara(src.Cpf)));
                 
                 cfg.CreateMap<FuncionarioInputDto, FuncionarioDto>();
 

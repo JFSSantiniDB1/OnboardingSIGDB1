@@ -2,7 +2,7 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\jean.santini\.nuget\packages\automapper\11.0.1\lib\netstandard2.1\AutoMapper.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=39de788d_002D54f8_002D4b8a_002D9ddb_002D5037ce37d9d0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FuncionarioXCargoServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=39de788d_002D54f8_002D4b8a_002D9ddb_002D5037ce37d9d0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FuncionarioXCargoServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
       &lt;TestId&gt;xUnit::D0D07D0A-59F3-41DE-866B-0921FA7CFC35::net6.0::OnboardingSIGDB1.Test.Services.FuncionarioXCargoServiceTests&lt;/TestId&gt;&#xD;
@@ -31,7 +31,7 @@
     &lt;TestId&gt;xUnit::D0D07D0A-59F3-41DE-866B-0921FA7CFC35::net6.0::OnboardingSIGDB1.Test.Services.FuncionarioXCargoServiceTests.NaoDeveAdicionarVinculoFuncionarioCargoComCargoInexistente&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fce26134_002D1329_002D4268_002Dbe11_002D072258647498/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fce26134_002D1329_002D4268_002Dbe11_002D072258647498/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
       &lt;TestId&gt;xUnit::D0D07D0A-59F3-41DE-866B-0921FA7CFC35::net6.0::OnboardingSIGDB1.Test.Entities.CargoTests.DeveValidarDescricaoLimiteMaximoCaracteres&lt;/TestId&gt;&#xD;
@@ -46,6 +46,9 @@
       &lt;TestId&gt;xUnit::D0D07D0A-59F3-41DE-866B-0921FA7CFC35::net6.0::OnboardingSIGDB1.Test.Services.FuncionarioXCargoServiceTests&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
     &lt;ProjectFile&gt;D0D07D0A-59F3-41DE-866B-0921FA7CFC35/d:Entities/f:CargoTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;D0D07D0A-59F3-41DE-866B-0921FA7CFC35/d:Services/f:CargoServiceTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;D0D07D0A-59F3-41DE-866B-0921FA7CFC35/d:Services/f:EmpresaServiceTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;D0D07D0A-59F3-41DE-866B-0921FA7CFC35/d:Services/f:FuncionarioServiceTests.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
