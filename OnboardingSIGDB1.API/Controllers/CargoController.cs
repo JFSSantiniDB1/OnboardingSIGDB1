@@ -90,7 +90,6 @@ public class CargoController : ControllerBase
     /// <param name="cargoInput"></param>
     /// <returns>Retorna status 202 e dados do cargo alterado</returns>
     [SwaggerResponse(statusCode: 202, description: "Sucesso ao alterar um cargo")]
-    [SwaggerResponse(statusCode: 204, description: "Informação não encontrada")]
     [SwaggerResponse(statusCode: 400, description: "Requisição inválida")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] CargoInputDto cargoInput)
@@ -109,7 +108,6 @@ public class CargoController : ControllerBase
     /// <param name="id"></param>
     /// <returns>Retorna status 202 e id do cargo excluído</returns>
     [SwaggerResponse(statusCode: 202, description: "Sucesso ao excluir um cargo")]
-    [SwaggerResponse(statusCode: 204, description: "Informação não encontrada")]
     [SwaggerResponse(statusCode: 400, description: "Requisição inválida")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
