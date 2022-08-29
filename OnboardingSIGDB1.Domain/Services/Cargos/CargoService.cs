@@ -46,7 +46,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             var cargo = _cargoRepository.Get(x => x.Id == id);
             if (cargo == null)
             {
-                _notification.AddNotification("No Content", "Cargo não encontrado.");
+                _notification.AddNotification("No Content", "Cargo".NaoEncontrado());
                 return null;
             }
             return BaseMapper.Mapper.Map<CargoDto>(cargo);
@@ -72,7 +72,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             var cargo = _cargoRepository.Get(x => x.Id == cargoDto.Id);
             if (cargo == null)
             {
-                _notification.AddNotification("No Content","Cargo não encontrado.");
+                _notification.AddNotification("No Content", "Cargo".NaoEncontrado());
                 return 0;
             }
             cargo.SetDescricao(cargoDto.Descricao);
@@ -92,7 +92,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             var cargo = _cargoRepository.Get(x => x.Id == id);
             var idReturn = 0;
             if (cargo == null)
-                _notification.AddNotification("No Content", "Cargo não encontrado.");
+                _notification.AddNotification("No Content", "Cargo".NaoEncontrado());
             else
             {
                 try
@@ -102,7 +102,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
                 }
                 catch (DbUpdateException)
                 {
-                    _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
+                    _notification.AddNotification("Unprocessable Entity", Messages.NaoPermitidoExcluirRegistroComVinculos);
                     idReturn = 0;
                 }
             }

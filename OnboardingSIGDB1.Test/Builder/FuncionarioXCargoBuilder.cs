@@ -7,6 +7,7 @@ namespace OnboardingSIGDB1.Test.Builder;
 
 public class FuncionarioXCargoBuilder
 {
+    private int _id;
     private int _idFuncionario;
     private int _idCargo;
     private DateTime _dataVinculo;
@@ -42,9 +43,16 @@ public class FuncionarioXCargoBuilder
         return this;
     }  
     
+    public FuncionarioXCargoBuilder ComId(int id)
+    {
+        _id = id;
+        return this;
+    }  
+    
     public FuncionarioXCargo Build()
     {
         var entity = new FuncionarioXCargo();
+        entity.Id = _id;
         entity.IdCargo = _idCargo;
         entity.IdFuncionario = _idFuncionario;
         entity.DataVinculo = _dataVinculo;
@@ -54,6 +62,7 @@ public class FuncionarioXCargoBuilder
     public FuncionarioXCargoDto BuildDto()
     {
         var dto = new FuncionarioXCargoDto();
+        dto.Id = _id;
         dto.IdCargo = _idCargo;
         dto.IdFuncionario = _idFuncionario;
         dto.DataVinculo = _dataVinculo.ToString("dd/MM/yyyy");

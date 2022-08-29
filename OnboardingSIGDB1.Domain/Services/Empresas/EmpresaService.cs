@@ -54,7 +54,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             var empresa = _empresaRepository.Get(x => x.Id == id);
             if (empresa == null)
             {
-                _notification.AddNotification("No Content", "Empresa não encontrada.");
+                _notification.AddNotification("No Content", "Empresa".NaoEncontrado());
                 return null;
             }
             var empresaDto = BaseMapper.Mapper.Map<EmpresaDto>(empresa);
@@ -82,12 +82,12 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             var empresa = _empresaRepository.GetEntityOnly(x => x.Id == empresaDto.Id);
             if (empresa == null)
             {
-                _notification.AddNotification("No Content","Empresa não encontrada.");
+                _notification.AddNotification("No Content", "Empresa".NaoEncontrado());
                 return 0;
             }
             empresa.SetCnPj(Convertions.GetCnpjSemMascara(empresaDto.Cnpj));
-            empresa.SetNome(empresa.Nome);
-            empresa.SetDataFundacao(empresa.DataFundacao);
+            empresa.SetNome(empresaDto.Nome);
+            empresa.SetDataFundacao(Convertions.GetDateTime(empresaDto.DataFundacao));
             
             empresa.Validate(empresa, _validator);
 
@@ -107,7 +107,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             var empresa = _empresaRepository.GetEntityOnly(x => x.Id == id);
             var idReturn = 0;
             if (empresa == null)
-                _notification.AddNotification("No Content", "Empresa não encontrada.");
+                _notification.AddNotification("No Content", "Empresa".NaoEncontrado());
             else
             {
                 try
@@ -117,7 +117,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
                 }
                 catch (DbUpdateException)
                 {
-                    _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
+                    _notification.AddNotification("Unprocessable Entity", Messages.NaoPermitidoExcluirRegistroComVinculos);
                     idReturn = 0;
                 }
             }

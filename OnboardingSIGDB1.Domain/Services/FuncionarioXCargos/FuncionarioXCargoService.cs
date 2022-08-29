@@ -46,7 +46,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             var funcionario = _funcionarioXCargoRepository.Get(x => x.Id == id);
             if (funcionario == null)
             {
-                _notification.AddNotification("No Content", "Cargo de funcionário não encontrado.");
+                _notification.AddNotification("No Content", "Cargo de funcionário".NaoEncontrado());
                 return null;
             }
             var funcionarioDto = BaseMapper.Mapper.Map<FuncionarioXCargoDto>(funcionario);
@@ -73,7 +73,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
             var idReturn = 0;
             
             if (funcionarioXCargo == null)
-                _notification.AddNotification("No Content", "Funcionário não encontrado.");
+                _notification.AddNotification("No Content", "Funcionário".NaoEncontrado());
             else
             {
                 try
@@ -83,7 +83,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionarioXCargos
                 }
                 catch (DbUpdateException)
                 {
-                    _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
+                    _notification.AddNotification("Unprocessable Entity", Messages.NaoPermitidoExcluirRegistroComVinculos);
                     idReturn = 0;
                 }
             }

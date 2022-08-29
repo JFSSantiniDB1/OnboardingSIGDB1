@@ -42,6 +42,23 @@ public class FuncionarioServiceTests : IClassFixture<InjectionFixture>
             )
         ), Times.Exactly(1));
     }
+    
+    [Fact]
+    public void DeveAlterarFuncionarioNomeDiferente()
+    {
+        var funcionarioEsperadoDto = FuncionarioBuilder.Novo().ComId(1).ComNome("A").BuildDto();
+        var funcionarioEsperado = FuncionarioBuilder.Novo().ComId(1).ComNome("B").Build();
+        
+        _funcionarioRepositoryMock.Setup(s => s.Get(x => x.Id == funcionarioEsperadoDto.Id)).Returns(funcionarioEsperado);
+        
+        _service.Update(funcionarioEsperadoDto);
+
+        _funcionarioRepositoryMock.Verify(r => r.Update(
+            It.Is<Funcionario>(
+                c => c.Nome == funcionarioEsperadoDto.Nome
+            )
+        ), Times.Exactly(1));
+    }
 
     [Fact]
     public void NaoDeveAdicionarFuncionarioComCpfJaExistente()

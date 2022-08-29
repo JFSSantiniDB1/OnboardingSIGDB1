@@ -6,6 +6,7 @@ namespace OnboardingSIGDB1.Test.Builder;
 
 public class FuncionarioBuilder
 {
+    private int _id;
     private string _nome;
     private string _cpf;
     private DateTime? _dataContratacao;
@@ -46,11 +47,18 @@ public class FuncionarioBuilder
     {
         _idEmpresa = idEmpresa;
         return this;
+    }    
+    
+    public FuncionarioBuilder ComId(int id)
+    {
+        _id = id;
+        return this;
     }
 
     public Funcionario Build()
     {
         var funcionario = new Funcionario();
+        funcionario.Id = _id;
         funcionario.SetNome(_nome);
         funcionario.SetCpf(_cpf);
         funcionario.SetDataContratacao(_dataContratacao);
@@ -61,6 +69,7 @@ public class FuncionarioBuilder
     public FuncionarioDto BuildDto()
     {
         var funcionario = new FuncionarioDto();
+        funcionario.Id = _id;
         funcionario.Nome = _nome;
         funcionario.Cpf = _cpf;
         funcionario.DataContratacao = _dataContratacao?.ToString("dd/MM/yyyy");

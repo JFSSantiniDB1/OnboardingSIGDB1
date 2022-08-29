@@ -35,6 +35,23 @@ public class CargoServiceTests : IClassFixture<InjectionFixture>
             )
         ), Times.Exactly(1));
     }
+    
+    [Fact]
+    public void DeveAlterarCargoDescricaoDiferente()
+    {
+        var cargoEsperadoDto = CargoBuilder.Novo().ComId(1).ComDescricao("A").BuildDto();
+        var cargoEsperado = CargoBuilder.Novo().ComId(1).ComDescricao("B").Build();
+        
+        _repositoryMock.Setup(s => s.Get(x => x.Id == cargoEsperadoDto.Id)).Returns(cargoEsperado);
+        
+        _service.Update(cargoEsperadoDto);
+        
+        _repositoryMock.Verify(r => r.Update(
+            It.Is<Cargo>(
+                c => c.Descricao == cargoEsperadoDto.Descricao
+            )
+        ), Times.Exactly(1));
+    }
 
     [Fact]
     public void NaoDeveAdicionarCargoComDescricaoJaExistente()

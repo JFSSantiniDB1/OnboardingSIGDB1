@@ -56,7 +56,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             var funcionario = _funcionarioRepository.Get(x => x.Id == id);
             if (funcionario == null)
             {
-                _notification.AddNotification("No Content", "Funcionário não encontrado.");
+                _notification.AddNotification("No Content", "Funcionário".NaoEncontrado());
                 return null;
             }
             var funcionarioDto = BaseMapper.Mapper.Map<FuncionarioDto>(funcionario);
@@ -83,7 +83,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             var funcionario = _funcionarioRepository.Get(x => x.Id == funcionarioDto.Id);
             if (funcionario == null)
             {
-                _notification.AddNotification("No Content", "Funcionário não encontrado.");
+                _notification.AddNotification("No Content", "Funcionário".NaoEncontrado());
                 return 0;
             }
 
@@ -92,7 +92,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             funcionario.SetDataContratacao(Convertions.GetDateTime(funcionarioDto.DataContratacao));
             if (funcionario.IdEmpresa.HasValue && funcionario.IdEmpresa != funcionarioDto.IdEmpresa)
             {
-                _notification.AddNotification("Unprocessable Entity", "Não é permitido alterar a empresa do funcionário.");
+                _notification.AddNotification("Unprocessable Entity", Messages.NaoPermitidoAlterarEmpresaDoFuncionario);
                 return 0;
             }
             funcionario.IdEmpresa = funcionarioDto.IdEmpresa;
@@ -114,7 +114,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             var funcionario = _funcionarioRepository.Get(x => x.Id == id);
             var idReturn = 0;
             if (funcionario == null)
-                _notification.AddNotification("No Content", "Funcionário não encontrado.");
+                _notification.AddNotification("No Content", "Funcionário".NaoEncontrado());
             else
             {
                 try
@@ -125,7 +125,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
                 catch (Exception ex) when (ex is DbUpdateException ||
                                            ex is InvalidOperationException)
                 {
-                    _notification.AddNotification("Unprocessable Entity", "Não é permitirdo excluir o registro pois o mesmo possui vínculos.");
+                    _notification.AddNotification("Unprocessable Entity", Messages.NaoPermitidoExcluirRegistroComVinculos);
                     idReturn = 0;
                 }
             }

@@ -6,6 +6,7 @@ namespace OnboardingSIGDB1.Test.Builder;
 
 public class EmpresaBuilder
 {
+    private int _id;
     private string _nome;
     private string _cnpj;
     private DateTime? _dataFundacao;
@@ -40,11 +41,18 @@ public class EmpresaBuilder
     {
         _dataFundacao = dataFundacao;
         return this;
+    }  
+    
+    public EmpresaBuilder ComId(int id)
+    {
+        _id = id;
+        return this;
     }
 
     public Empresa Build()
     {
         var empresa = new Empresa();
+        empresa.Id = _id;
         empresa.SetNome(_nome);
         empresa.SetCnPj(_cnpj);
         empresa.SetDataFundacao(_dataFundacao);
@@ -54,6 +62,7 @@ public class EmpresaBuilder
     public EmpresaDto BuildDto()
     {
         var empresa = new EmpresaDto();
+        empresa.Id = _id;
         empresa.Nome = _nome;
         empresa.Cnpj = _cnpj;
         empresa.DataFundacao = _dataFundacao?.ToString("dd/MM/yyyy");

@@ -40,6 +40,23 @@ public class EmpresaServiceTests: IClassFixture<InjectionFixture>
     } 
     
     [Fact]
+    public void DeveAlterarEmpresaNomeDiferente()
+    {
+        var empresaEsperadaDto = EmpresaBuilder.Novo().ComId(1).ComNome("A").BuildDto();
+        var empresaEsperada = EmpresaBuilder.Novo().ComId(1).ComNome("B").Build();
+        
+        _repositoryMock.Setup(s => s.GetEntityOnly(x => x.Id == empresaEsperadaDto.Id)).Returns(empresaEsperada);
+        
+        _service.Update(empresaEsperadaDto);
+
+        _repositoryMock.Verify(r => r.Update(
+            It.Is<Empresa>(
+                c => c.Nome == empresaEsperadaDto.Nome
+            )
+        ), Times.Exactly(1));
+    }
+    
+    [Fact]
     public void NaoDeveAdicionarEmpresaComCnpjJaExistente()
     {
         var empresaEsperadaDto = EmpresaBuilder.Novo().BuildDto();
